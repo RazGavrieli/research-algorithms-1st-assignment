@@ -1,0 +1,9 @@
+cd q1
+pytest tests.py
+cd ..
+cd q2
+pytest tests.py
+cd ..
+cd q3
+pytest tests.py
+cd ..

@@ -7,13 +7,13 @@ def four_neighbor_function(node)->list:
 
 def dict_graph_neighbor_function(node):
     graph = {
-    'A' : ['B','C'],
-    'B' : ['D', 'E'],
-    'C' : ['F'],
-    'D' : [],
-    'E' : ['F'],
-    'F' : []
-    }
+    'A' : ['B','C'],            #        A -> B ---> D
+    'B' : ['D', 'E'],           #        |    |     
+    'C' : ['F'],                #        V    V
+    'D' : [],                   #        C    E
+    'E' : ['F'],                #        \    /
+    'F' : []                    #         V  V
+    }                           #           F
     return graph.get(node)
 
 def test_1():
@@ -36,6 +36,10 @@ def test_5():
     expectedResult = 5
     assert len(breadth_first_search(start=(0,0), end=(2, 2), neighbor_function=four_neighbor_function)) == expectedResult
 
-def test_polymorphi():
+def test_polymorphic_1():
     expectedResult = ['A', 'C' ,'F']
     assert breadth_first_search(start='A', end='F', neighbor_function=dict_graph_neighbor_function) == expectedResult
+
+def test_polymorphic_2():
+    expectedResult = ['A', 'B' ,'E']
+    assert breadth_first_search(start='A', end='E', neighbor_function=dict_graph_neighbor_function) == expectedResult

@@ -1,6 +1,8 @@
-# source
+# sources
 # https://www.geeksforgeeks.org/function-annotations-python/
-
+# https://docs.python.org/3/library/inspect.html
+# import inspect
+# I have decided to NOT import inspect to save resources
 def f(x: int , y: float, z):
     return x+y+z
 
@@ -61,4 +63,4 @@ def safe_call(f, **kwargs):
     return f(**kwargs)
 
 if __name__ == "__main__":
-    print(simple_safe_call(f, x=1, y=5.0, z=3))
+    print(safe_call(f, x=1, y=5.0, z=3))
