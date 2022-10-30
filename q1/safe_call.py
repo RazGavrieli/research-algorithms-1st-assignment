@@ -6,61 +6,41 @@
 def f(x: int , y: float, z):
     return x+y+z
 
-def ssafe_call(f, *args, **kwargs):
-    """
-    Compares the given list of arguments with the arguments of a given function
-    """
-    print()
-    # Compare types of each annotated arguments
-    annotationsDict = f.__annotations__
-    for i in annotationsDict.keys():
-        if annotationsDict.get(i) != type(kwargs.get(i)):
-            print(i)
-            if i not in kwargs.keys():
-                raise Exception("missing arguments")
-            else:
-                raise Exception("unmatching types")
-            
-
-    # Check for unexpected argument
-    for i in kwargs.keys():
-        print(i, annotationsDict, f.__defaults__)
-        if f.__defaults__ != None:
-            if i not in annotationsDict or i not in f.__defaults__:
-                raise Exception("unexpected arguments given to safe_call")
-        else:
-            if i not in annotationsDict:
-                raise Exception("unexpected arguments given to safe_call")
-
-
-    # Define the number of default arguments in f
-    numOfDefaults = 0 if f.__defaults__ == None else len(f.__defaults__)
-    if len(kwargs) < f.__code__.co_argcount - numOfDefaults:
-        raise Exception("missing arguments")
-    
-    return f(**kwargs)
-
-def safe_call(f, **kwargs):
+def safe_call(f, *args, **kwargs):
     """
     ensures correctness of a given list of arguments. 
     Raises exceptions if there are unmatching types or missing arguments
     """
-    annotationsDict = f.__annotations__
+    allVarnamesList = list(f.__code__.co_varnames) # Convert a tuple of f's arguments to a list (mmutable)
+    annotationsDict = f.__annotations__ # Get a dictionary of all f's annotated arguments 
     # for each argument given to safe_call
     for key, value in kwargs.items():
         # if key is not an argument of f 
-        if key not in f.__code__.co_varnames: 
+        if key not in allVarnamesList: 
             raise Exception("unexpected arguments given to safe_call")
+        # Remove the key from the variables names list
+        allVarnamesList.remove(key)
         # if the type of the given variable does not match the type annotated in f
         if type(value) != annotationsDict.get(key) and key in annotationsDict.keys():
             raise Exception("unmatching types")
     
+    # For each value given without an argument's name, assign an empty argument to it
+    for arg in args:
+        if len(allVarnamesList) != 0:
+            for index, varName in enumerate(allVarnamesList):
+                if annotationsDict.get(varName) == type(arg):
+                    kwargs[varName] = arg
+                    allVarnamesList.pop(index)
+        else: # If we were given an positional value but we don't have an empty argument for it
+            raise Exception("too many arguments given")
+            
     # Define the number of default arguments in f
     numOfDefaults = 0 if f.__defaults__ == None else len(f.__defaults__)
-    if len(kwargs) < f.__code__.co_argcount - numOfDefaults:
+    # If allVarnamesList is not empty, then there are arguments of f that wasn't assigned a value
+    if len(allVarnamesList) - numOfDefaults != 0:
         raise Exception("missing arguments")
 
     return f(**kwargs)
-
+ 
 if __name__ == "__main__":
-    print(safe_call(f, x=1, y=5.0, z=3))
+    print(safe_call(f, 3.4, 4, z=3))
