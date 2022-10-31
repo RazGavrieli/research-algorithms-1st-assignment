@@ -37,7 +37,7 @@ def safe_call(f, *args, **kwargs):
     # Define the number of default arguments in f
     numOfDefaults = 0 if f.__defaults__ == None else len(f.__defaults__)
     # If allVarnamesList is not empty, then there are arguments of f that wasn't assigned a value
-    if len(allVarnamesList) - numOfDefaults != 0:
+    if len(allVarnamesList) - numOfDefaults > 0:
         raise Exception("missing arguments")
 
     return f(**kwargs)
