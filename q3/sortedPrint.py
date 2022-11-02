@@ -4,7 +4,7 @@ import collections
 
 
 
-def print_sorted(x, key=None):
+def print_sorted(x):
     """
     prints sorted dictionaries, tuples, sets and lists (that are combined)
     """
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     x = {'a':5, 'c':{4, 3, 6}, 'b': [[3,2], [12, 32, 1,3], [5]]}
     print_sorted(x)
     print()
-    x = [1, 2, {'c':[3, 2, 1], 'a': {2: 'world', 1:'hello'}, 'g':4}]
+    x = [1, -2, {'c':[3, 2, 1], 'a': {2: 'world', 1:'hello'}, 'g':4}, [4, 3, 5]]
     print_sorted(x)
     print()
 
