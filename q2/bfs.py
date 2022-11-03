@@ -66,6 +66,13 @@ def breadth_first_search(start, end, neighbor_function):
     raise Exception("could not find destination node")
 
 
+def lattice_graph_w(node):
+    """
+    returns the neighbors of a node in grid graph
+    """
+    (x, y) = node
+    return [(x+1, y), (x-1, y), (x, y+1), (x,y-1), (x+1, y+1), (x+1, y-1), (x-1, y+1), (x-1, y-1)]
+
 def lattice_graph(node):
     """
     returns the neighbors of a node in grid graph
