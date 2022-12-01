@@ -68,7 +68,7 @@ def breadth_first_search(start, end, neighbor_function):
 
 def lattice_graph_w(node):
     """
-    returns the neighbors of a node in grid graph
+    returns the neighbors of a node in grid graph w
     """
     (x, y) = node
     return [(x+1, y), (x-1, y), (x, y+1), (x,y-1), (x+1, y+1), (x+1, y-1), (x-1, y+1), (x-1, y-1)]
