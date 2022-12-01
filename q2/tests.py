@@ -29,7 +29,7 @@ def test_3():
     assert breadth_first_search(start=(0,0), end=(0,-2), neighbor_function=four_neighbor_function) == expectedResult
 
 def test_4():
-    expectedResult = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (6, -1), (6, -2)]
+    expectedResult = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (6, -1), (6, 2)]
     assert breadth_first_search(start=(0,0), end=(6,-2), neighbor_function=four_neighbor_function) == expectedResult
 
 def test_5():
