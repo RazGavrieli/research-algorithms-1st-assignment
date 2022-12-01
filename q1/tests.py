@@ -45,5 +45,5 @@ def test_3():
     assert safe_call(h, x=2, y=3.5) == 2.5
 
 def test_4():
-    assert safe_call(h, 4) == 4.2
+    assert safe_call(h, 4) == 4.1
    
